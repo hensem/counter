@@ -1,0 +1,15 @@
+{
+    "name": "counter/api",
+    "description": "Page view counter API",
+    "type": "project",
+    "authors": [
+        {
+            "name": "User",
+            "email": "user@example.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "flightphp/core": "^3.17"
+    }
+}
