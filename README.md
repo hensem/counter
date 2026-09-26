@@ -11,10 +11,15 @@ A lightweight unique page view counter API for internal use.
 
 ## Allowed Domains
 
-Configured in `config/config_counter.php` as `COUNTER_ALLOWED_DOMAINS`. Currently:
-- `takdekeje.kuceng.my`
-- `lisa.kuceng.my`
-- `amet.kuceng.my`
+Configured in `config/config_counter.php` as `COUNTER_ALLOWED_DOMAINS`.
+
+```php
+define('COUNTER_ALLOWED_DOMAINS', [
+    'domain.name',
+    'example.com',
+    'example2.my',
+]);
+```
 
 ## Tech Stack
 
