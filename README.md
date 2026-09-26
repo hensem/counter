@@ -9,13 +9,6 @@ A lightweight unique page view counter API for internal use.
 - A visitor is counted once per page per day
 - Returns a JSON response: `{"value": <count>}`
 
-## Allowed Domains
-
-Only pages under these domains are accepted:
-- `takdekeje.kuceng.my`
-- `lisa.kuceng.my`
-- `amet.kuceng.my`
-
 ## Tech Stack
 
 - PHP with [FlightPHP](https://flightphp.com/) routing
