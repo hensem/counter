@@ -3,6 +3,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET');
 header('Access-Control-Allow-Headers: *');
 require_once __DIR__ . '/../../library/vendor/autoload.php';
+require_once __DIR__ . '/../../config/config_counter.php';
 require_once 'db.php';
 
 Flight::route('/', function() {
@@ -10,11 +11,7 @@ Flight::route('/', function() {
         $page = $_GET['page'];
 		
         // Validate page domain
-        $allowed = [
-			'takdekeje.kuceng.my',
-			'lisa.kuceng.my',
-			'amet.kuceng.my'
-		];
+        $allowed = COUNTER_ALLOWED_DOMAINS;
 
 		$valid = false;
 
