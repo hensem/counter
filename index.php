@@ -32,6 +32,16 @@ Flight::route('/', function() {
         $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
         $visitor_hash = hash('sha256', $ip . $ua, true);
 
+        // Lookup country (best-effort, silent on failure)
+        function get_country(string $ip): string {
+            $res = @file_get_contents('http://ip-api.com/json/' . $ip . '?fields=countryCode');
+            if ($res) {
+                $data = json_decode($res, true);
+                return $data['countryCode'] ?? '';
+            }
+            return '';
+        }
+
         global $pdo;
 
         // Check if visitor already logged for this page recently (within 1 day)
@@ -47,7 +57,8 @@ Flight::route('/', function() {
             echo json_encode(['value' => $row['unique_count'] ?? 0]);
         } else {
             // Unique, insert/update log
-            $pdo->prepare("INSERT INTO visitor_logs (page, visitor_hash, visited_at) VALUES (?, ?, datetime('now')) ON CONFLICT(page, visitor_hash) DO UPDATE SET visited_at = datetime('now')")->execute([$page, $visitor_hash]);
+            $country = get_country($ip);
+            $pdo->prepare("INSERT INTO visitor_logs (page, visitor_hash, visited_at, ip, country) VALUES (?, ?, datetime('now'), ?, ?) ON CONFLICT(page, visitor_hash) DO UPDATE SET visited_at = datetime('now'), ip = excluded.ip, country = excluded.country")->execute([$page, $visitor_hash, $ip, $country]);
 
             // Check if page exists in page_views
             $stmt = $pdo->prepare("SELECT unique_count FROM page_views WHERE page = ?");

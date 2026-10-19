@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026-09-29]
+
+### Added
+- Store visitor IP and country code in `visitor_logs` table on each unique visit
+- Country lookup via `ip-api.com` (no API key required, silent on failure)
+
 ## [2026-09-26 06:52]
 
 ### Changed

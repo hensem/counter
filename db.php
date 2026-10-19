@@ -23,7 +23,12 @@ CREATE TABLE IF NOT EXISTS visitor_logs (
   page TEXT,
   visitor_hash BLOB,
   visited_at TEXT,
+  ip TEXT,
+  country TEXT,
   UNIQUE(page, visitor_hash)
 );
 ");
+
+try { $pdo->exec('ALTER TABLE visitor_logs ADD COLUMN ip TEXT'); } catch (Exception $e) {}
+try { $pdo->exec('ALTER TABLE visitor_logs ADD COLUMN country TEXT'); } catch (Exception $e) {}
 ?>
